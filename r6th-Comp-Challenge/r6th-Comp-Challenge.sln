@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "r6th-Comp-Challenge", "r6th-Comp-Challenge\r6th-Comp-Challenge.csproj", "{52D8CA07-385F-4036-A228-A717A3A73092}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|anycpu = Debug|anycpu
+		Release|anycpu = Release|anycpu
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52D8CA07-385F-4036-A228-A717A3A73092}.Debug|anycpu.ActiveCfg = Debug|anycpu
+		{52D8CA07-385F-4036-A228-A717A3A73092}.Debug|anycpu.Build.0 = Debug|anycpu
+		{52D8CA07-385F-4036-A228-A717A3A73092}.Release|anycpu.ActiveCfg = Release|anycpu
+		{52D8CA07-385F-4036-A228-A717A3A73092}.Release|anycpu.Build.0 = Release|anycpu
+	EndGlobalSection
+EndGlobal

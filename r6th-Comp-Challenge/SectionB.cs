@@ -68,5 +68,12 @@ namespace r6thCompChallenge
                 return Math.Max(end - start, max);
             return max;
         }
+
+        public int TicTacNo(int n)
+        {
+            // Block one diagonal
+            // If n is even, place a block anywhere on the other diagonal
+            return n + (~n & 1);
+        }
     }
 }

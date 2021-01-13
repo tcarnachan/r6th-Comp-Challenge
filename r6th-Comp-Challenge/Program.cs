@@ -14,6 +14,7 @@ namespace r6thCompChallenge
             //TestA2(a);
 
             SectionB b = new SectionB();
+            //TestB1(b);
             TestB2(b);
         }
 
@@ -64,9 +65,7 @@ namespace r6thCompChallenge
         private static void TestB2(SectionB b)
         {
             foreach (int test in GetTestCasesIntArray("b2"))
-            {
                 Console.WriteLine($"Test: {test}\nYour Answer: {b.TicTacNo(test)}\n");
-            }
         }
 
         private static List<char[][]> GetTestCasesGrid(string challenge)

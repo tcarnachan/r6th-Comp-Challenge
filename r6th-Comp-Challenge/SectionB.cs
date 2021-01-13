@@ -36,8 +36,8 @@ namespace r6thCompChallenge
 
                 // Check \ diagonal
                 diagonal.Clear();
-                for (int offset = 0; offset <= i; offset++)
-                    diagonal.Add(grid[i - offset][offset]);
+                for (int offset = 0; i + offset < grid.Length; offset++)
+                    diagonal.Add(grid[offset][i + offset]);
                 t = MaxChain(diagonal.ToArray());
                 if (t > maxChain)
                     maxChain = t;
@@ -71,9 +71,22 @@ namespace r6thCompChallenge
 
         public int TicTacNo(int n)
         {
-            // Block one diagonal
-            // If n is even, place a block anywhere on the other diagonal
-            return n + (~n & 1);
+            if (n == 2)
+                return 3;
+            /*
+             * Going down the leading diagonal works for odd n
+             * U
+             * BU
+             * BBU
+             * BBBU
+             * ....
+             * Swapping the centre 2x2 to look like
+             * BU
+             * UB
+             * makes it work for even n
+             * which is n blocks
+             */
+            return n;
         }
     }
 }

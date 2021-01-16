@@ -15,7 +15,8 @@ namespace r6thCompChallenge
 
             SectionB b = new SectionB();
             //TestB1(b);
-            TestB2(b);
+            //TestB2(b);
+            TestB3(b);
         }
 
         private static void TestA1(SectionA a)
@@ -64,8 +65,31 @@ namespace r6thCompChallenge
 
         private static void TestB2(SectionB b)
         {
-            foreach (int test in GetTestCasesIntArray("b2"))
-                Console.WriteLine($"Test: {test}\nYour Answer: {b.TicTacNo(test)}\n");
+            foreach (int[] test in GetTestCasesIntArray("b2"))
+                Console.WriteLine($"Test: {test[0]}\nYour Answer: {b.TicTacNo(test[0])}\n");
+        }
+
+        private static void TestB3(SectionB b)
+        {
+            foreach(var test in GetTestCasesIntArray("b3"))
+            {
+                Console.WriteLine($"n={test[0]}, k={test[1]}");
+                char[][] grid = b.ChainBlocker(test[0], test[1]);
+                foreach (char[] row in grid)
+                {
+                    foreach (char c in row)
+                    {
+                        if (c == 'U')
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        else
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(c);
+                    }
+                    Console.WriteLine();
+                }
+                Console.ResetColor();
+                Console.WriteLine();
+            }
         }
 
         private static List<char[][]> GetTestCasesGrid(string challenge)
@@ -78,10 +102,10 @@ namespace r6thCompChallenge
             return grids;
         }
 
-        private static int[] GetTestCasesIntArray(string challenge)
+        private static int[][] GetTestCasesIntArray(string challenge)
         {
             string file = File.ReadAllText($"Input Data/input_{challenge}.txt").Replace("\r\n", "\n");
-            return file.Split().Select(int.Parse).ToArray();
+            return file.Split('\n').Select(l => l.Split().Select(int.Parse).ToArray()).ToArray();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace r6thCompChallenge
 {
@@ -91,26 +92,33 @@ namespace r6thCompChallenge
              */
             return n;
         }
+
         public char[][] ChainBlocker(int n, int k)
         {
-            // Start with a fully blocked grid
+            // Start with a fully unblocked grid
             char[][] grid = new char[n][];
             for (int i = 0; i < n; i++)
-                grid[i] = Enumerable.Repeat('B', n).ToArray();
+                grid[i] = Enumerable.Repeat('U', n).ToArray();
 
-            // Only solution
+            // Fully blocked grid
             if (k == 1)
+            {
+                for (int i = 0; i < n; i++)
+                    grid[i] = Enumerable.Repeat('B', n).ToArray();
+                return grid;
+            }
+
+            // Impossible to have k-chains
+            if(k > n)
+                // Return the fully unblocked grid
                 return grid;
 
             // Special case from b-2
             if(n == k)
             {
-                // Set diagonal
+                // Block diagonal
                 for (int i = 0; i < n; i++)
-                {
-                    grid[i] = Enumerable.Repeat('U', n).ToArray();
                     grid[i][i] = 'B';
-                }
                 // Fix centre for even n
                 if(n % 2 == 0)
                 {
@@ -123,23 +131,28 @@ namespace r6thCompChallenge
             }
 
             // Run greedy algorithm
-            GreedyChainBlocker(n, k, grid, 0);
+            GreedyChainBlocker(n, k, grid);
+            Console.WriteLine(MaxChain(grid));
 
-            // Set corners
             return grid;
         }
 
-        private void GreedyChainBlocker(int n, int k, char[][] grid, int ix)
+        private void GreedyChainBlocker(int n, int k, char[][] grid)
         {
-            int r = ix / n, c = ix % n;
-            // Try unblocking this square
-            grid[r][c] = 'U';
-            // If this creates a k-chain
-            if (MaxChain(grid) == k)
-                grid[r][c] = 'B';
-            // Move to the next square
-            if(ix + 1 < n * n)
-                GreedyChainBlocker(n, k, grid, ix + 1);
+            // Just split it into (k-1)x(k-1) squares since that is what
+            // the greedy algorithm was doing anyway
+            for(int r = 0; r < n; r++)
+            {
+                char[] row = grid[r];
+                for (int c = k - 1; c < n; c += k)
+                    row[c] = 'B';
+                if((r + 1) % k == 0)
+                {
+                    for (int c = 0; c < n; c++)
+                        row[c] = 'B';
+                }
+            }
+            Console.WriteLine($"Blocked: {grid.Sum(r => r.Count(c => c == 'B'))}");
         }
     }
 }

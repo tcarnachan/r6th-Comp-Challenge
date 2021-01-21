@@ -71,7 +71,7 @@ namespace r6thCompChallenge
 
         private static void TestB3(SectionB b)
         {
-            foreach(var test in GetTestCasesIntArray("b3"))
+            foreach (var test in GetTestCasesIntArray("b3"))
             {
                 Console.WriteLine($"n={test[0]}, k={test[1]}");
                 char[][] grid = b.ChainBlocker(test[0], test[1]);

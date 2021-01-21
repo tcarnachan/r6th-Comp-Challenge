@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace r6thCompChallenge
 {
@@ -10,38 +9,42 @@ namespace r6thCompChallenge
         public int MaxChain(char[][] grid)
         {
             int maxChain = 0;
+            int n = grid.Length;
 
             // Check rows
             foreach(char[] row in grid)
             {
                 int t = MaxChain(row);
-                if (t > maxChain)
-                    maxChain = t;
+                if (t > maxChain) maxChain = t;
             }
 
-            for(int i = 0; i < grid.Length; i++)
+            // Check columns
+            for (int i = 0; i < n; i++)
             {
-                // Check column
-                var column = Enumerable.Range(0, grid.Length).Select(r => grid[r][i]);
+                var column = Enumerable.Range(0, n).Select(r => grid[r][i]);
                 int t = MaxChain(column.ToArray());
-                if (t > maxChain)
-                    maxChain = t;
+                if (t > maxChain) maxChain = t;
+            }
 
-                // Check / diagonal
-                List<char> diagonal = new List<char>();
-                for (int offset = 0; i - offset >= 0; offset++)
-                    diagonal.Add(grid[offset][i - offset]);
-                t = MaxChain(diagonal.ToArray());
-                if (t > maxChain)
-                    maxChain = t;
+            // Check / diagonals
+            for(int i = 0; i < 2 * n - 1; i++)
+            {
+                List<char> diag = new List<char>();
+                for (int j = Math.Max(i - n + 1, 0); j < Math.Min(i + 1, n); j++)
+                    diag.Add(grid[i - j][j]);
+                int t = MaxChain(diag.ToArray());
+                if (t > maxChain) maxChain = t;
+            }
 
-                // Check \ diagonal
-                diagonal.Clear();
-                for (int offset = 0; i + offset < grid.Length; offset++)
-                    diagonal.Add(grid[offset][i + offset]);
-                t = MaxChain(diagonal.ToArray());
-                if (t > maxChain)
-                    maxChain = t;
+            // Check \ diagonals
+            for (int i = 0; i < 2 * n - 1; i++)
+            {
+                List<char> diag = new List<char>();
+                for (int j = Math.Max(i - n + 1, 0); j < Math.Min(i + 1, n); j++)
+                    diag.Add(grid[n - i + j - 1][j]);
+                Console.WriteLine(string.Concat(diag));
+                int t = MaxChain(diag.ToArray());
+                if (t > maxChain) maxChain = t;
             }
 
             return maxChain;

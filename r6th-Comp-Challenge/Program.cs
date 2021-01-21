@@ -14,9 +14,9 @@ namespace r6thCompChallenge
             //TestA2(a);
 
             SectionB b = new SectionB();
-            //TestB1(b);
+            TestB1(b);
             //TestB2(b);
-            TestB3(b);
+            //TestB3(b);
         }
 
         private static void TestA1(SectionA a)
